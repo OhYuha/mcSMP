@@ -1,0 +1,32 @@
+name: Daily Discord Morning Alarm
+
+on:
+  schedule:
+    # 한국 시간(KST) 아침 5시는 UTC 기준 '전날 오후 8시(20시)' 입니다.
+    - cron: '0 20 * * *'
+  
+  # 수동 테스트용 버튼 활성화
+  workflow_dispatch: 
+
+jobs:
+  send-alarm:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Run Discord bot script
+      env:
+        # GitHub Secrets에서 웹훅 주소와 유저 ID를 안전하게 가져옵니다.
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        TARGET_USER_ID: ${{ secrets.TARGET_USER_ID }}
+      run: python discord_alarm.py
