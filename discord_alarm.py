@@ -12,7 +12,7 @@ def send_morning_alarm():
 
     # 2. 디스코드 멘션 포맷: <@유저ID>
     # 텍스트 안에 이 포맷을 넣으면 디스코드에서 파란색 태그와 함께 알림이 갑니다.
-    message_content = f"<@{user_id}> 기상할 시간입니다! ⏰ 좋은 아침이에요!"
+    message_content = f"<@{user_id}> 서버 갱신해"
 
     payload = {
         "content": message_content
